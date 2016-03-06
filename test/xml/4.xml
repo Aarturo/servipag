@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Servipag>
+  <FirmaServipag>asdhbasduasdkasdnasd</FirmaServipag>
+  <IdTrxServipag>123456</IdTrxServipag>
+  <IdTxCliente>78910</IdTxCliente>
+  <EstadoPago>1</EstadoPago>
+  <MensajePago>Completado</MensajePago>
+</Servipag>
