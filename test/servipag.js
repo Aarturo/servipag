@@ -22,8 +22,10 @@ var data = {
 			RutCliente: "11111111-1",
 			Version: 2
 		};
-var xml4ficticio = '<?xml version="1.0" encoding="ISO8859-1"?><Servipag><FirmaServipag>asdhbasduasdkasdnasd</FirmaServipag><IdTrxServipag>123456</IdTrxServipag><IdTxCliente>78910</IdTxCliente><EstadoPago>1</EstadoPago><MensajePago>Completado</MensajePago></Servipag>' ;
-var resultadoxml4ficticio = {FirmaServipag : '12345678910', IdTrxServipag: '123456', IdTxCliente: '78910', EstadoPago: '1', MensajePago: 'Completado'};
+var xml2ficticio = '<?xml version="1.0" encoding="ISO-8859-1"?><Servipag><FirmaServipag>NQILA1+r0CAGwGArpXtmUaeVsJZK3JZGECv9rLe91YojBeZQlNi0qSw1VvJnMBrT02F53KDJfZmqj4kH1Tb905rca+4z+2OTNAxeDm+0sxYf9qH3jDLCE9JeH/+BOmMkeTtAt5LAXrAyDK6Oc1psXE5USjAuh9bae4p2RBUk7fQ=</FirmaServipag><IdTrxServipag>1234</IdTrxServipag><IdTxCliente>5678</IdTxCliente><FechaPago>20160331</FechaPago><CodMedioPago>BC2016</CodMedioPago><FechaContable>20160308</FechaContable><CodigoIdentificador>ASFDG125361235GG</CodigoIdentificador><Boleta>123456789123345456</Boleta><Monto>10</Monto></Servipag>';
+var resultadoxml2ficticio = {FirmaServipag: 'NQILA1+r0CAGwGArpXtmUaeVsJZK3JZGECv9rLe91YojBeZQlNi0qSw1VvJnMBrT02F53KDJfZmqj4kH1Tb905rca+4z+2OTNAxeDm+0sxYf9qH3jDLCE9JeH/+BOmMkeTtAt5LAXrAyDK6Oc1psXE5USjAuh9bae4p2RBUk7fQ=', IdTrxServipag: '1234', IdTxCliente: '5678', FechaPago: '20160331', CodMedioPago: 'BC2016', FechaContable: '20160308', CodigoIdentificador: 'ASFDG125361235GG', Boleta: '123456789123345456', Monto: '10'};
+var xml4ficticio = '<?xml version="1.0" encoding="ISO-8859-1"?><Servipag><FirmaServipag>U09I85PB+gpHsaohHWwJbxEvJdksPN7qMOv/ln3eDZF/OAskKUNWPcmhwP2THmw5Lg9ZBNebQkAaUNPqe0+gqgUcfigg9O94I5SwYaZwpKJvbVG3samYSg5TuUBzdasDAFbqtnK6PNdr0cb8HBwGS832z/vJmIKXs52AecCoi6g=</FirmaServipag><IdTrxServipag>123456</IdTrxServipag><IdTxCliente>78910</IdTxCliente><EstadoPago>1</EstadoPago><MensajePago>Completado</MensajePago></Servipag>' ;
+var resultadoxml4ficticio = {FirmaServipag : 'U09I85PB+gpHsaohHWwJbxEvJdksPN7qMOv/ln3eDZF/OAskKUNWPcmhwP2THmw5Lg9ZBNebQkAaUNPqe0+gqgUcfigg9O94I5SwYaZwpKJvbVG3samYSg5TuUBzdasDAFbqtnK6PNdr0cb8HBwGS832z/vJmIKXs52AecCoi6g=', IdTrxServipag: '123456', IdTxCliente: '78910', EstadoPago: '1', MensajePago: 'Completado'};
 
 describe("Test Servipag", function(){
 	it("Valida el concatenar para la firma", function (done){
@@ -54,21 +56,13 @@ describe("Test Servipag", function(){
 		assert.equal(xml3, "<?xml version='1.0' encoding='ISO-8859-1'?><Servipag><CodigoRetorno>0</CodigoRetorno><MensajeRetorno>Transacción OK</MensajeRetorno></Servipag>");
 		done();
 	})
-
-	// it("Comprueba xml4", function (done) {
-	// 	var servipag = Servipag.create();
-	// 	var xml4 = servipag.validarXml4(xml4ficticio);
-	// 	console.log(xml4.mensaje);
-	// 	assert.deepEqual(xml4.mensaje, resultadoxml4ficticio);
-	// 	done();
-	// });
-
+	
 	it("Comprueba desencriptar llave publica", function (done) {
 		//cadena para firmar que se formaria con los valores que llegarían en resultadoxml4ficticio
 		var cadena = '12345678910';
 		//firma que haría servipag
 		var llaveprivada = ursa.createPrivateKey(fs.readFileSync(config.rutallaveprivada));
-		var firma = llaveprivada.sign('md5', cadena, 'utf8', 'base64');
+		var firma = llaveprivada.sign('md5', cadena, 'utf8', 'base64');		
 		// console.log(firma);
 		//verificación que haría el comercio
 		var servipag = Servipag.create();
@@ -77,4 +71,18 @@ describe("Test Servipag", function(){
 		assert.ok(resultado);
 		done();
 	})
+
+	it("Comprueba xml2", function (done) {
+		var servipag = Servipag.create();
+		var xml2 = servipag.validarXml2(xml2ficticio);		
+		assert.deepEqual(xml2.mensaje, resultadoxml2ficticio);
+		done();
+	})
+	it("Comprueba xml4", function (done) {
+		var servipag = Servipag.create();
+		var xml4 = servipag.validarXml4(xml4ficticio);		
+		assert.deepEqual(xml4.mensaje, resultadoxml4ficticio);
+		done();
+	});
+
 });
