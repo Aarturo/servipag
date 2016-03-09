@@ -5,8 +5,7 @@ var ursa = require("ursa");
 var Servipag = require("../lib/servipag.js");
 var config = require("../config/");
 var fs = require('fs');
-var data = {
-			FirmaEPS: "PjywWBrcmIScfe82NUwNiHSzhVs0CwtHGwlRBOiQiNONLpsHz1jvhhU9T20aZxhVJD4waPa5hXlX95FYUdDwsSm6lDguLk5JDWxQHlwkVMenqrhJ+2HDXGqg8DNqNXD0JtAoba0eh56Krs2H2Y1q2WJgF38JidcchekdoTXIvlw=",
+var data = {			
 			Boleta: 1,
 			CodigoCanalPago: 2,
 			FechaPago: 23012016,
