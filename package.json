@@ -1,6 +1,6 @@
 {
   "name": "servipag",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "complemento para sevicio web de servipag",
   "main": "index.js",
   "scripts": {
