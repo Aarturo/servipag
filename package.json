@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/Aarturo/servipag#readme",
   "dependencies": {
-    "ursa": "^0.9.3"
+    "ursa": "^0.9.3",
+    "utf8": "^2.1.1"
   },
   "devDependencies": {
     "assert": "^1.3.0",
